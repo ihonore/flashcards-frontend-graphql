@@ -1,11 +1,13 @@
 import React from 'react';
-
 import './App.css';
+import FlashcardaList from './components/FlashcardsList/FlashcardsList';
 
 function App() {
   return (
     <div className="App">
-     Flashcards
+      <div className="container">
+        <FlashcardaList />
+      </div>
     </div>
   );
 }
