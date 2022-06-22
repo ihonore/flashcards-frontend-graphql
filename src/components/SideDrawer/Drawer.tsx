@@ -31,6 +31,12 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   backgroundColor: '#543980',
 }));
 
+const classes = {
+  icon: {
+    color: '#543980',
+  },
+};
+
 export default function PersistentDrawerLeft({
   open,
   close,
@@ -70,7 +76,7 @@ export default function PersistentDrawerLeft({
           <ListItem key="Public FlashCards" disablePadding>
             <ListItemButton>
               <ListItemIcon>
-                <AutoAwesomeMotion />
+                <AutoAwesomeMotion sx={classes.icon} />
               </ListItemIcon>
               <ListItemText primary="Public Flashcards" />
             </ListItemButton>
@@ -78,7 +84,7 @@ export default function PersistentDrawerLeft({
           <ListItem key="My FlashCards" disablePadding>
             <ListItemButton>
               <ListItemIcon>
-                <BadgeOutlined />
+                <BadgeOutlined sx={classes.icon} />
               </ListItemIcon>
               <ListItemText primary="My Flashcards" />
             </ListItemButton>
@@ -86,7 +92,7 @@ export default function PersistentDrawerLeft({
           <ListItem key="sort" disablePadding>
             <ListItemButton>
               <ListItemIcon>
-                <Sort />
+                <Sort sx={classes.icon} />
               </ListItemIcon>
               <ListItemText primary="Sort Flashcards" />
             </ListItemButton>
@@ -105,7 +111,7 @@ export default function PersistentDrawerLeft({
             <ListItem key="Logout" disablePadding>
               <ListItemButton>
                 <ListItemIcon>
-                  <ExitToApp />
+                  <ExitToApp sx={classes.icon} />
                 </ListItemIcon>
                 <ListItemText primary="Logout" />
               </ListItemButton>
@@ -115,7 +121,7 @@ export default function PersistentDrawerLeft({
             <ListItem key="user" disablePadding>
               <ListItemButton>
                 <ListItemIcon>
-                  <AccountCircle />
+                  <AccountCircle sx={classes.icon} />
                 </ListItemIcon>
                 <ListItemText primary="Honore Iradukunda" />
               </ListItemButton>

@@ -1,16 +1,13 @@
 import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
 import './App.css';
-import SearchAppBar from './components/AppBar/AppBar';
-import FlashcardaList from './components/FlashcardsList/FlashcardsList';
+import AllRoutes from './routes/Routes';
 
 function App() {
   return (
-    <div className="App">
-      <SearchAppBar />
-      <div className="container">
-        <FlashcardaList />
-      </div>
-    </div>
+    <BrowserRouter>
+      <AllRoutes />
+    </BrowserRouter>
   );
 }
 
