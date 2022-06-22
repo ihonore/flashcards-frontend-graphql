@@ -93,7 +93,10 @@ export default function SignIn() {
             await localStorage.setItem('userToken', login.token);
             await localStorage.setItem(
               'currentUser',
-              JSON.stringify(login.user)
+              JSON.stringify({
+                name: login.user.name,
+                email: login.user.email,
+              })
             );
             navigate('/dashboard');
           },
@@ -115,7 +118,10 @@ export default function SignIn() {
             await localStorage.setItem('userToken', signup.token);
             await localStorage.setItem(
               'currentUser',
-              JSON.stringify(signup.user)
+              JSON.stringify({
+                name: signup.user.name,
+                email: signup.user.email,
+              })
             );
             navigate('/dashboard');
           },
@@ -213,10 +219,12 @@ export default function SignIn() {
                 })
               }
             />
-            {login && <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />}
+            {login && (
+              <FormControlLabel
+                control={<Checkbox value="remember" color="primary" />}
+                label="Remember me"
+              />
+            )}
             <Button
               fullWidth
               variant="contained"

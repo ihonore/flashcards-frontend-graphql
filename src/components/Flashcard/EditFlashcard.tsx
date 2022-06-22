@@ -2,12 +2,22 @@ import * as React from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
+import { useUpdateFlashcardMutation } from '../../generated/graphql';
+import { Bars } from 'react-loader-spinner';
 
 const EditFlashcard = ({ close, flashcard }: any) => {
   const [formState, setFormState] = React.useState({
     question: flashcard.question,
     answer: flashcard.answer,
     error: '',
+  });
+
+  const [updateFlashcardMutation, { loading }] = useUpdateFlashcardMutation({
+    variables: {
+      updateFlashcardId: flashcard.id,
+      question: formState.question,
+      answer: formState.answer,
+    },
   });
 
   return (
@@ -49,9 +59,20 @@ const EditFlashcard = ({ close, flashcard }: any) => {
         fullWidth
         variant="contained"
         sx={{ mt: 3, mb: 2, bgcolor: '#543980' }}
-        onClick={close}
+        onClick={() => {
+          updateFlashcardMutation({
+            variables: {
+              updateFlashcardId: flashcard.id,
+              question: formState.question,
+              answer: formState.answer,
+            },
+            onCompleted: () => {
+              close();
+            },
+          });
+        }}
       >
-        SAVE
+        {loading ? <Bars width={20} height={20} color="white" /> : 'SAVE'}
       </Button>
     </Box>
   );

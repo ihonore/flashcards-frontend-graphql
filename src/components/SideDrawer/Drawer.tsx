@@ -19,6 +19,7 @@ import {
   ExitToApp,
   Sort,
 } from '@mui/icons-material';
+import { Typography } from '@mui/material';
 
 const drawerWidth = 240;
 
@@ -36,6 +37,13 @@ const classes = {
     color: '#543980',
   },
 };
+
+interface User {
+  name: string;
+  email: number;
+}
+const strObj: any = localStorage.getItem('currentUser');
+const currentUser: User = JSON.parse(strObj);
 
 export default function PersistentDrawerLeft({
   open,
@@ -129,7 +137,21 @@ export default function PersistentDrawerLeft({
                 <ListItemIcon>
                   <AccountCircle sx={classes.icon} />
                 </ListItemIcon>
-                <ListItemText primary="Honore Iradukunda" />
+                <ListItemText
+                  primary={
+                    <Typography
+                      variant="body1"
+                      sx={{
+                        fontSize: '1rem',
+                        ml: -2,
+                        fontWeight: 500,
+                        color: '#543980',
+                      }}
+                    >
+                      {currentUser.name}
+                    </Typography>
+                  }
+                />
               </ListItemButton>
             </ListItem>
           </List>

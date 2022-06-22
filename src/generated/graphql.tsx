@@ -113,6 +113,15 @@ export type User = {
   name: Scalars['String'];
 };
 
+export type UpdateFlashcardMutationVariables = Exact<{
+  updateFlashcardId: Scalars['Int'];
+  question?: InputMaybe<Scalars['String']>;
+  answer?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type UpdateFlashcardMutation = { __typename?: 'Mutation', updateFlashcard: { __typename?: 'Flashcard', id: number, question: string, answer: string, isDone: boolean, createdAt: any, postedBy?: { __typename?: 'User', name: string, email: string } | null } };
+
 export type FlashcardsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -136,6 +145,49 @@ export type SignupMutationVariables = Exact<{
 export type SignupMutation = { __typename?: 'Mutation', signup: { __typename?: 'AuthPayload', token: string, user: { __typename?: 'User', name: string, email: string } } };
 
 
+export const UpdateFlashcardDocument = gql`
+    mutation UpdateFlashcard($updateFlashcardId: Int!, $question: String, $answer: String) {
+  updateFlashcard(id: $updateFlashcardId, question: $question, answer: $answer) {
+    id
+    question
+    answer
+    isDone
+    createdAt
+    postedBy {
+      name
+      email
+    }
+  }
+}
+    `;
+export type UpdateFlashcardMutationFn = Apollo.MutationFunction<UpdateFlashcardMutation, UpdateFlashcardMutationVariables>;
+
+/**
+ * __useUpdateFlashcardMutation__
+ *
+ * To run a mutation, you first call `useUpdateFlashcardMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateFlashcardMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateFlashcardMutation, { data, loading, error }] = useUpdateFlashcardMutation({
+ *   variables: {
+ *      updateFlashcardId: // value for 'updateFlashcardId'
+ *      question: // value for 'question'
+ *      answer: // value for 'answer'
+ *   },
+ * });
+ */
+export function useUpdateFlashcardMutation(baseOptions?: Apollo.MutationHookOptions<UpdateFlashcardMutation, UpdateFlashcardMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateFlashcardMutation, UpdateFlashcardMutationVariables>(UpdateFlashcardDocument, options);
+      }
+export type UpdateFlashcardMutationHookResult = ReturnType<typeof useUpdateFlashcardMutation>;
+export type UpdateFlashcardMutationResult = Apollo.MutationResult<UpdateFlashcardMutation>;
+export type UpdateFlashcardMutationOptions = Apollo.BaseMutationOptions<UpdateFlashcardMutation, UpdateFlashcardMutationVariables>;
 export const FlashcardsDocument = gql`
     query Flashcards {
   flashcards {
