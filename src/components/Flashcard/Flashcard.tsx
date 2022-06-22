@@ -2,6 +2,7 @@ import { CheckCircle, Delete, Edit, Person } from '@mui/icons-material';
 import { Box, Divider, Stack, Typography } from '@mui/material';
 import moment from 'moment';
 import React, { useState, useRef } from 'react';
+import EditFlashcard from './EditFlashcard';
 
 export interface flashcard {
   id: number;
@@ -11,9 +12,43 @@ export interface flashcard {
 
 export default function Flashcard({ flashcard }: any) {
   const [flip, setFlip] = useState(false);
+  const [editMode, setEditMode] = useState(false);
 
   const frontEl = useRef() as React.MutableRefObject<HTMLDivElement>;
   const backEl = useRef() as React.MutableRefObject<HTMLDivElement>;
+
+  const classes = {
+    iconBox: {
+      display: 'flex',
+      alifnItems: 'center',
+      justifyContent: 'center',
+      '&:hover': {
+        background: 'white',
+      },
+    },
+  };
+
+  const handleClose = () => {
+    setEditMode(false);
+  };
+
+  if (editMode) {
+    return (
+      <Box
+        sx={{
+          position: 'relative',
+          height: { xs: '25vh', sm: 250 },
+          width: { xs: '90vw', sm: 400 },
+          background: 'white',
+          borderRadius: '0.25rem',
+        }}
+      >
+        <Box sx={{ padding: '0 0.5rem' }}>
+          <EditFlashcard close={handleClose} flashcard={flashcard} />
+        </Box>
+      </Box>
+    );
+  }
 
   return (
     <Box
@@ -32,7 +67,11 @@ export default function Flashcard({ flashcard }: any) {
               right: { xs: '0.2rem', sm: '0.5rem' },
               backgroundColor: 'white',
               padding: '0.5rem 0.5rem',
+              transition: 'transform .2s',
               zIndex: 2,
+              '&:hover': {
+                transform: 'scale(1.2)',
+              },
             }}
           >
             <Stack
@@ -43,16 +82,21 @@ export default function Flashcard({ flashcard }: any) {
                 cursor: 'pointer',
               }}
             >
-              <CheckCircle
-                sx={{
-                  color: flashcard.isDone ? '#26A716' : 'white',
-                  padding: '4px 2px',
-                }}
-              />
+              <Box sx={classes.iconBox}>
+                <CheckCircle
+                  sx={{
+                    color: flashcard.isDone ? '#21AC0E' : '#868A88',
+                  }}
+                />
+              </Box>
               <Divider />
-              <Edit sx={{ color: '#2E91D4', padding: '4px 2px' }} />
+              <Box sx={classes.iconBox} onClick={() => setEditMode(true)}>
+                <Edit sx={{ color: '#2E91D4' }} />
+              </Box>
               <Divider />
-              <Delete sx={{ color: '#FF7247', padding: '4px 2px' }} />
+              <Box sx={classes.iconBox}>
+                <Delete sx={{ color: '#FF7247' }} />
+              </Box>
             </Stack>
           </Box>
           <Box
@@ -61,7 +105,8 @@ export default function Flashcard({ flashcard }: any) {
               bottom: '0.2rem',
               right: '0.5rem',
               zIndex: 2,
-              // backgroundColor: 'white',
+              // transition: 'transform 0.2s',
+              // backgroundColor: 'green',
               // padding: '0.5rem 0.5rem',
             }}
           >

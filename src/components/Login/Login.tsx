@@ -155,12 +155,7 @@ export default function SignIn() {
           <Typography component="h5" variant="body1" sx={{ color: 'red' }}>
             {formState.error && `${formState.error}`}
           </Typography>
-          <Box
-            component="form"
-            // onSubmit={handleSubmit}
-            noValidate
-            sx={{ mt: 1 }}
-          >
+          <Box component="form" noValidate sx={{ mt: 1 }}>
             {!login && (
               <TextField
                 margin="normal"
@@ -176,6 +171,7 @@ export default function SignIn() {
                   setFormState({
                     ...formState,
                     name: e.target.value,
+                    error: '',
                   })
                 }
               />
@@ -195,6 +191,7 @@ export default function SignIn() {
                 setFormState({
                   ...formState,
                   email: e.target.value,
+                  error: '',
                 })
               }
             />
@@ -212,13 +209,14 @@ export default function SignIn() {
                 setFormState({
                   ...formState,
                   password: e.target.value,
+                  error: '',
                 })
               }
             />
-            <FormControlLabel
+            {login && <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
-            />
+            />}
             <Button
               fullWidth
               variant="contained"

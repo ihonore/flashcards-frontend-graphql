@@ -109,7 +109,13 @@ export default function PersistentDrawerLeft({
         >
           <List>
             <ListItem key="Logout" disablePadding>
-              <ListItemButton>
+              <ListItemButton
+                onClick={() => {
+                  localStorage.removeItem('userToken');
+                  localStorage.removeItem('currentUser');
+                  window.location.reload();
+                }}
+              >
                 <ListItemIcon>
                   <ExitToApp sx={classes.icon} />
                 </ListItemIcon>
