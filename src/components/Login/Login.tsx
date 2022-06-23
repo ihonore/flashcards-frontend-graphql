@@ -46,7 +46,12 @@ export default function SignIn() {
     error: '',
   });
 
+  const token = localStorage.getItem('userToken');
   const navigate = useNavigate();
+
+  React.useEffect(() => {
+    if (token) return navigate('/dashboard');
+  });
 
   const [loginMutation, { loading, error }] = useLoginMutation({
     variables: {

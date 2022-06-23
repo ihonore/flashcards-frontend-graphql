@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { Provider } from 'react-redux';
 import {
   ApolloClient,
   ApolloProvider,
@@ -8,6 +9,7 @@ import {
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import App from './App';
+import store from './redux/store';
 
 const authLink = setContext((_, { headers }) => {
   const token = localStorage.getItem('userToken');
@@ -34,7 +36,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-      <App />
+      <Provider store={store}>
+        <App />
+      </Provider>
     </ApolloProvider>
   </React.StrictMode>
 );

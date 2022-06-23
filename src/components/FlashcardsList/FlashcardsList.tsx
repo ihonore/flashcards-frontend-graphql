@@ -1,9 +1,12 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { useFlashcardsQuery } from '../../generated/graphql';
+import setAllFlashcards from '../../redux/actions/flashcardsActions';
 import Flashcard from '../Flashcard/Flashcard';
 
 const FlashcardaList: React.FC = () => {
   const { data, error, loading } = useFlashcardsQuery();
+  const dispatch = useDispatch();
 
   if (loading) {
     return <div style={{ color: 'white', fontSize: '2rem' }}>loading...</div>;
@@ -15,6 +18,8 @@ const FlashcardaList: React.FC = () => {
       </div>
     );
   }
+  dispatch(setAllFlashcards(data.flashcards.flashcards));
+
   return (
     <div className="card-grid">
       {data.flashcards.flashcards.map((flashcard) => {

@@ -9,6 +9,11 @@ import InputBase from '@mui/material/InputBase';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import PersistentDrawerLeft from '../SideDrawer/Drawer';
+import { TailSpin } from 'react-loader-spinner';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useFilterFlashcardsLazyQuery } from '../../generated/graphql';
+import { useDispatch } from 'react-redux';
+import setAllFlashcards from '../../redux/actions/flashcardsActions';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -29,10 +34,12 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
   padding: theme.spacing(0, 2),
   height: '100%',
   position: 'absolute',
-  pointerEvents: 'none',
+  // pointerEvents: 'none',
+  cursor: 'pointer',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
+  zIndex: 20,
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
@@ -54,8 +61,32 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function SearchAppBar() {
   const [open, setOpen] = React.useState(false);
+  const [filterValue, setFilterValue] = React.useState('');
+  const dispatch = useDispatch();
+
+  const [filterFlashcards, {  loading }] =
+    useFilterFlashcardsLazyQuery({
+      variables: {
+        filter: '',
+      },
+    });
+
   const handleDrawerClose = () => {
     setOpen(false);
+  };
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+
+  const handleSearch = () => {
+    console.log('clicked');
+    filterFlashcards({
+      variables: {
+        filter: filterValue,
+      },
+      onCompleted: ({ flashcards }) => {
+        dispatch(setAllFlashcards(flashcards.flashcards));
+      },
+    });
   };
   return (
     <>
@@ -83,17 +114,35 @@ export default function SearchAppBar() {
               variant="h6"
               noWrap
               component="div"
-              sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+              sx={{
+                flexGrow: 1,
+                display: { xs: 'none', sm: 'block' },
+              }}
+              onClick={() => navigate('/dashboard')}
             >
               FLASHCARDS APP
             </Typography>
             <Search>
-              <SearchIconWrapper>
-                <SearchIcon />
+              <SearchIconWrapper onClick={handleSearch}>
+                {loading ? (
+                  <TailSpin width={20} height={20} color="white" />
+                ) : (
+                  <SearchIcon />
+                )}
               </SearchIconWrapper>
               <StyledInputBase
                 placeholder="Search…"
                 inputProps={{ 'aria-label': 'search' }}
+                onFocus={(e) => {
+                  if (pathname !== '/search') {
+                    navigate('/search');
+                  }
+                }}
+                onChange={(e) => {
+                  setFilterValue(e.target.value);
+                }}
+                value={filterValue}
+                autoFocus={pathname === '/search' ? true : false}
               />
             </Search>
           </Toolbar>

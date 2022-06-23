@@ -3,7 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import Dashboard from '../components/Dashboard/Dashboard';
 import Login from '../components/Login/Login';
 import ProtectRoute from './ProtectedRoutes';
-
+import Search from '../components/Search'
 const AllRoutes = () => {
   return (
     <Routes>
@@ -13,6 +13,14 @@ const AllRoutes = () => {
         element={
           <ProtectRoute redirectTo="/">
             <Dashboard />
+          </ProtectRoute>
+        }
+      />
+      <Route
+        path="/search"
+        element={
+          <ProtectRoute redirectTo="/">
+            <Search />
           </ProtectRoute>
         }
       />

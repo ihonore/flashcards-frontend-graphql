@@ -144,6 +144,13 @@ export type SignupMutationVariables = Exact<{
 
 export type SignupMutation = { __typename?: 'Mutation', signup: { __typename?: 'AuthPayload', token: string, user: { __typename?: 'User', name: string, email: string } } };
 
+export type FilterFlashcardsQueryVariables = Exact<{
+  filter?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type FilterFlashcardsQuery = { __typename?: 'Query', flashcards: { __typename?: 'AllFlashcards', count: number, id?: string | null, flashcards: Array<{ __typename?: 'Flashcard', question: string, answer: string, isDone: boolean, createdAt: any, id: number, postedBy?: { __typename?: 'User', id: number, email: string, name: string } | null }> } };
+
 
 export const UpdateFlashcardDocument = gql`
     mutation UpdateFlashcard($updateFlashcardId: Int!, $question: String, $answer: String) {
@@ -308,3 +315,51 @@ export function useSignupMutation(baseOptions?: Apollo.MutationHookOptions<Signu
 export type SignupMutationHookResult = ReturnType<typeof useSignupMutation>;
 export type SignupMutationResult = Apollo.MutationResult<SignupMutation>;
 export type SignupMutationOptions = Apollo.BaseMutationOptions<SignupMutation, SignupMutationVariables>;
+export const FilterFlashcardsDocument = gql`
+    query FilterFlashcards($filter: String) {
+  flashcards(filter: $filter) {
+    flashcards {
+      question
+      answer
+      isDone
+      createdAt
+      id
+      postedBy {
+        id
+        email
+        name
+      }
+    }
+    count
+    id
+  }
+}
+    `;
+
+/**
+ * __useFilterFlashcardsQuery__
+ *
+ * To run a query within a React component, call `useFilterFlashcardsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFilterFlashcardsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFilterFlashcardsQuery({
+ *   variables: {
+ *      filter: // value for 'filter'
+ *   },
+ * });
+ */
+export function useFilterFlashcardsQuery(baseOptions?: Apollo.QueryHookOptions<FilterFlashcardsQuery, FilterFlashcardsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FilterFlashcardsQuery, FilterFlashcardsQueryVariables>(FilterFlashcardsDocument, options);
+      }
+export function useFilterFlashcardsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FilterFlashcardsQuery, FilterFlashcardsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FilterFlashcardsQuery, FilterFlashcardsQueryVariables>(FilterFlashcardsDocument, options);
+        }
+export type FilterFlashcardsQueryHookResult = ReturnType<typeof useFilterFlashcardsQuery>;
+export type FilterFlashcardsLazyQueryHookResult = ReturnType<typeof useFilterFlashcardsLazyQuery>;
+export type FilterFlashcardsQueryResult = Apollo.QueryResult<FilterFlashcardsQuery, FilterFlashcardsQueryVariables>;
