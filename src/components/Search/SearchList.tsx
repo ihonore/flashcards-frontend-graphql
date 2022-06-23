@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import Flashcard from '../Flashcard/Flashcard';
 
 const SearchList: React.FC = () => {
+  const [cardsToDisplay, setCardsToDisplay] = React.useState([]);
   const state: any = useSelector((state) => state);
   const allCards = state?.flashCards?.allCards;
-  const [cardsToDisplay] = React.useState(allCards);
+
+  useEffect(() => {
+    setCardsToDisplay(allCards);
+  }, [allCards]);
 
   if (allCards.length < 1) {
     return (

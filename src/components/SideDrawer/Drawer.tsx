@@ -88,16 +88,16 @@ export default function PersistentDrawerLeft({
         </DrawerHeader>
         <Divider />
         <List>
-          <ListItem key="Public FlashCards" disablePadding>
+          <ListItem key="all FlashCards" disablePadding>
             <ListItemButton onClick={() => navigate('/dashboard')}>
               <ListItemIcon>
                 <AutoAwesomeMotion sx={classes.icon} />
               </ListItemIcon>
-              <ListItemText primary="Public Flashcards" />
+              <ListItemText primary="All Flashcards" />
             </ListItemButton>
           </ListItem>
           <ListItem key="My FlashCards" disablePadding>
-            <ListItemButton>
+            <ListItemButton onClick={() => navigate('/my-flashcards')}>
               <ListItemIcon>
                 <BadgeOutlined sx={classes.icon} />
               </ListItemIcon>
