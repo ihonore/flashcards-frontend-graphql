@@ -1,5 +1,6 @@
-import { AddCircle } from '@mui/icons-material';
-import { Tooltip } from '@mui/material';
+import { AddCircle, Sort } from '@mui/icons-material';
+import { MenuItem, Select, Stack, Tooltip } from '@mui/material';
+import Box from '@mui/material/Box';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
@@ -16,6 +17,14 @@ const FlashcardaList: React.FC = () => {
 
   const handleClose = () => {
     setCreateMode(false);
+  };
+
+  const classes = {
+    button: {
+      background: 'none',
+      border: 'none',
+      cursor: 'pointer',
+    },
   };
 
   if (loading) {
@@ -37,6 +46,7 @@ const FlashcardaList: React.FC = () => {
     return flashcard.postedBy?.email === currentUser?.email;
   });
 
+  // myFlashcards.length < 1 && pathname === '/my-flashcards'
   if (myFlashcards.length < 1 && pathname === '/my-flashcards') {
     return (
       <>
@@ -82,23 +92,82 @@ const FlashcardaList: React.FC = () => {
               return <Flashcard flashcard={flashcard} />;
             })}
       </div>
-      <Tooltip title="Create Flashcard">
-        <AddCircle
+      <Stack
+        alignItems="center"
+        gap={2}
+        sx={{
+          position: 'absolute',
+          top: { xs: '4rem', sm: '5rem' },
+          right: '1.5rem',
+          flexDirection: { xs: 'row', sm: 'column' },
+        }}
+      >
+        <Tooltip title="Create Flashcard">
+          <AddCircle
+            sx={{
+              color: '#FFFFFF',
+              fontSize: '2.5rem',
+              cursor: 'pointer',
+              transition: 'transform .2s',
+              '&:hover': {
+                transform: 'scale(1.3)',
+              },
+            }}
+            onClick={() => setCreateMode(!createMode)}
+          />
+        </Tooltip>
+        <Box
           sx={{
-            color: '#FFFFFF',
-            fontSize: '2.5rem',
-            position: 'absolute',
-            top: { xs: '4rem', sm: '5rem' },
-            right: '1.5rem',
-            cursor: 'pointer',
-            transition: 'transform .2s',
-            '&:hover': {
-              transform: 'scale(1.3)',
-            },
+            width: 'auto',
+            position: 'relative',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            background: 'rgba(255,255,255,0.3)',
+            // border: '1px solid white',
           }}
-          onClick={() => setCreateMode(!createMode)}
-        />
-      </Tooltip>
+        >
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={40}
+            label="Age"
+            variant="standard"
+            sx={{
+              width: 50,
+              height: 40,
+              // marginRight: 15,
+              // border: '1px solid white',
+            }}
+          >
+            <MenuItem key="question">
+              <button className="dropdown-item" style={classes.button}>
+                Question
+              </button>
+            </MenuItem>
+            <MenuItem key="answer">
+              <button className="dropdown-item" style={classes.button}>
+                Answer
+              </button>
+            </MenuItem>
+            <MenuItem key="time">
+              <button className="dropdown-item" style={classes.button}>
+                Time added
+              </button>
+            </MenuItem>
+          </Select>
+          <Sort
+            sx={{
+              height: '2rem',
+              color: 'white',
+              width: '2rem',
+              position: 'absolute',
+              top: 2.5,
+              left: 2.5,
+            }}
+          />
+        </Box>
+      </Stack>
     </>
   );
 };
