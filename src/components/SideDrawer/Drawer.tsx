@@ -20,6 +20,7 @@ import {
   Sort,
 } from '@mui/icons-material';
 import { Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const drawerWidth = 240;
 
@@ -42,8 +43,6 @@ interface User {
   name: string;
   email: number;
 }
-// const strObj: any = localStorage.getItem('currentUser');
-// const currentUser: User = JSON.parse(strObj);
 
 let currentUser: User;
 
@@ -55,6 +54,7 @@ export default function PersistentDrawerLeft({
   close: any;
 }) {
   const theme = useTheme();
+  const navigate = useNavigate();
 
   React.useEffect(() => {
     const strObj: any = localStorage.getItem('currentUser');
@@ -89,7 +89,7 @@ export default function PersistentDrawerLeft({
         <Divider />
         <List>
           <ListItem key="Public FlashCards" disablePadding>
-            <ListItemButton>
+            <ListItemButton onClick={() => navigate('/dashboard')}>
               <ListItemIcon>
                 <AutoAwesomeMotion sx={classes.icon} />
               </ListItemIcon>

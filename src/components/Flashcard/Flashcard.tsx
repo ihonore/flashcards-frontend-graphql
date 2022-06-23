@@ -6,14 +6,9 @@ import {
   useDeleteFlashcardMutation,
   useMarkAsDoneMutation,
 } from '../../generated/graphql';
-import { Bars, RevolvingDot, BallTriangle } from 'react-loader-spinner';
+import { BallTriangle } from 'react-loader-spinner';
 import EditFlashcard from './EditFlashcard';
 
-export interface flashcard {
-  id: number;
-  question: string;
-  answer: string;
-}
 
 export default function Flashcard({ flashcard }: any) {
   const [flip, setFlip] = useState(false);
