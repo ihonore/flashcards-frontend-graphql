@@ -72,7 +72,11 @@ const EditFlashcard = ({ close, flashcard }: any) => {
           });
         }}
       >
-        {loading ? <Bars width={20} height={20} color="white" /> : 'SAVE'}
+        {loading ? (
+          <Bars width={20} height={20} color="white" />
+        ) : (
+          'SAVE CHANGES'
+        )}
       </Button>
     </Box>
   );

@@ -101,6 +101,7 @@ body {
 .card .back {
   transform: rotateY(180deg);
   color: rgb(4, 182, 19);
+  /* color: rgb(187, 46, 230); */
 }
 
 @media screen and (max-width: 700px) {
@@ -112,6 +113,6 @@ body {
   .container {
     max-width: 99vw;
     margin: 0.5rem 1rem;
-    margin-top: 5rem;
+    margin-top: 7rem;
   }
 }
