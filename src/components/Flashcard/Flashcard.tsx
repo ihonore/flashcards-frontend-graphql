@@ -2,6 +2,11 @@ import { CheckCircle, Delete, Edit, Person } from '@mui/icons-material';
 import { Box, Divider, Stack, Typography } from '@mui/material';
 import moment from 'moment';
 import React, { useState, useRef } from 'react';
+import {
+  useDeleteFlashcardMutation,
+  useMarkAsDoneMutation,
+} from '../../generated/graphql';
+import { Bars, RevolvingDot, BallTriangle } from 'react-loader-spinner';
 import EditFlashcard from './EditFlashcard';
 
 export interface flashcard {
@@ -16,6 +21,20 @@ export default function Flashcard({ flashcard }: any) {
 
   const frontEl = useRef() as React.MutableRefObject<HTMLDivElement>;
   const backEl = useRef() as React.MutableRefObject<HTMLDivElement>;
+
+  const [markAsDoneMutation, { loading }] = useMarkAsDoneMutation({
+    variables: {
+      updateFlashcardId: flashcard.id,
+      isDone: true,
+    },
+  });
+
+  const [deleteFlashcardMutation, { loading: deleteLoading }] =
+    useDeleteFlashcardMutation({
+      variables: {
+        deleteFlashcardId: flashcard.id,
+      },
+    });
 
   const classes = {
     iconBox: {
@@ -83,11 +102,23 @@ export default function Flashcard({ flashcard }: any) {
               }}
             >
               <Box sx={classes.iconBox}>
-                <CheckCircle
-                  sx={{
-                    color: flashcard.isDone ? '#21AC0E' : '#868A88',
-                  }}
-                />
+                {loading ? (
+                  <BallTriangle width={20} height={20} color="blue" />
+                ) : (
+                  <CheckCircle
+                    sx={{
+                      color: flashcard.isDone ? '#21AC0E' : '#868A88',
+                    }}
+                    onClick={() => {
+                      markAsDoneMutation({
+                        variables: {
+                          updateFlashcardId: flashcard.id,
+                          isDone: true,
+                        },
+                      });
+                    }}
+                  />
+                )}
               </Box>
               <Divider />
               <Box sx={classes.iconBox} onClick={() => setEditMode(true)}>
@@ -95,7 +126,20 @@ export default function Flashcard({ flashcard }: any) {
               </Box>
               <Divider />
               <Box sx={classes.iconBox}>
-                <Delete sx={{ color: '#FF7247' }} />
+                {deleteLoading ? (
+                  <BallTriangle width={20} height={20} color="red" />
+                ) : (
+                  <Delete
+                    sx={{ color: '#FF7247' }}
+                    onClick={() => {
+                      deleteFlashcardMutation({
+                        variables: {
+                          deleteFlashcardId: flashcard.id,
+                        },
+                      });
+                    }}
+                  />
+                )}
               </Box>
             </Stack>
           </Box>
@@ -105,9 +149,6 @@ export default function Flashcard({ flashcard }: any) {
               bottom: '0.2rem',
               right: '0.5rem',
               zIndex: 2,
-              // transition: 'transform 0.2s',
-              // backgroundColor: 'green',
-              // padding: '0.5rem 0.5rem',
             }}
           >
             <Stack direction="row" gap={2}>
