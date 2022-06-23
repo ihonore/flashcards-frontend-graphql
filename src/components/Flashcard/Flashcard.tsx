@@ -8,11 +8,22 @@ import {
 } from '../../generated/graphql';
 import { BallTriangle } from 'react-loader-spinner';
 import EditFlashcard from './EditFlashcard';
-
+import { User } from '../SideDrawer/Drawer';
 
 export default function Flashcard({ flashcard }: any) {
   const [flip, setFlip] = useState(false);
   const [editMode, setEditMode] = useState(false);
+
+  const isOwner = () => {
+    const strObj: any = localStorage.getItem('currentUser');
+    const currentUser: User = JSON.parse(strObj);
+
+    if (flashcard.postedBy.email === currentUser.email) {
+      return true;
+    } else {
+      return false;
+    }
+  };
 
   const frontEl = useRef() as React.MutableRefObject<HTMLDivElement>;
   const backEl = useRef() as React.MutableRefObject<HTMLDivElement>;
@@ -37,7 +48,15 @@ export default function Flashcard({ flashcard }: any) {
       alifnItems: 'center',
       justifyContent: 'center',
       '&:hover': {
-        background: 'white',
+        background: isOwner() ? 'white' : '',
+      },
+    },
+    markAsDone: {
+      display: 'flex',
+      alifnItems: 'center',
+      justifyContent: 'center',
+      '&:hover': {
+        background: !flashcard.isDone ? 'white' : '',
       },
     },
   };
@@ -96,7 +115,7 @@ export default function Flashcard({ flashcard }: any) {
                 cursor: 'pointer',
               }}
             >
-              <Box sx={classes.iconBox}>
+              <Box sx={classes.markAsDone}>
                 {loading ? (
                   <BallTriangle width={20} height={20} color="blue" />
                 ) : (
@@ -105,19 +124,26 @@ export default function Flashcard({ flashcard }: any) {
                       color: flashcard.isDone ? '#21AC0E' : '#868A88',
                     }}
                     onClick={() => {
-                      markAsDoneMutation({
-                        variables: {
-                          updateFlashcardId: flashcard.id,
-                          isDone: true,
-                        },
-                      });
+                      if (!flashcard.isDone) {
+                        markAsDoneMutation({
+                          variables: {
+                            updateFlashcardId: flashcard.id,
+                            isDone: true,
+                          },
+                        });
+                      }
                     }}
                   />
                 )}
               </Box>
               <Divider />
-              <Box sx={classes.iconBox} onClick={() => setEditMode(true)}>
-                <Edit sx={{ color: '#2E91D4' }} />
+              <Box
+                sx={classes.iconBox}
+                onClick={() => isOwner() && setEditMode(true)}
+              >
+                <Edit
+                  sx={{ color: isOwner() ? '#2E91D4' : 'rgb(188, 184, 189)' }}
+                />
               </Box>
               <Divider />
               <Box sx={classes.iconBox}>
@@ -125,13 +151,15 @@ export default function Flashcard({ flashcard }: any) {
                   <BallTriangle width={20} height={20} color="red" />
                 ) : (
                   <Delete
-                    sx={{ color: '#FF7247' }}
+                    sx={{ color: isOwner() ? '#FF7247' : 'rgb(188, 184, 189)' }}
                     onClick={() => {
-                      deleteFlashcardMutation({
-                        variables: {
-                          deleteFlashcardId: flashcard.id,
-                        },
-                      });
+                      if (isOwner()) {
+                        deleteFlashcardMutation({
+                          variables: {
+                            deleteFlashcardId: flashcard.id,
+                          },
+                        });
+                      }
                     }}
                   />
                 )}

@@ -39,7 +39,7 @@ const classes = {
   },
 };
 
-interface User {
+export interface User {
   name: string;
   email: number;
 }
