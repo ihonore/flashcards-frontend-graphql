@@ -42,8 +42,10 @@ interface User {
   name: string;
   email: number;
 }
-const strObj: any = localStorage.getItem('currentUser');
-const currentUser: User = JSON.parse(strObj);
+// const strObj: any = localStorage.getItem('currentUser');
+// const currentUser: User = JSON.parse(strObj);
+
+let currentUser: User;
 
 export default function PersistentDrawerLeft({
   open,
@@ -53,6 +55,11 @@ export default function PersistentDrawerLeft({
   close: any;
 }) {
   const theme = useTheme();
+
+  React.useEffect(() => {
+    const strObj: any = localStorage.getItem('currentUser');
+    currentUser = JSON.parse(strObj);
+  }, []);
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -148,7 +155,7 @@ export default function PersistentDrawerLeft({
                         color: '#543980',
                       }}
                     >
-                      {currentUser.name}
+                      {currentUser?.name || ''}
                     </Typography>
                   }
                 />

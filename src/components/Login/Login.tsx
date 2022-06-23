@@ -87,7 +87,7 @@ export default function SignIn() {
         error: 'Enter a valid email address',
       });
     } else {
-      console.log(formState);
+      // console.log(formState);
       if (login) {
         loginMutation({
           variables: {
