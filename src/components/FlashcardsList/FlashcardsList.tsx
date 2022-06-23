@@ -1,4 +1,5 @@
 import { AddCircle } from '@mui/icons-material';
+import { Tooltip } from '@mui/material';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useFlashcardsQuery } from '../../generated/graphql';
@@ -35,21 +36,23 @@ const FlashcardaList: React.FC = () => {
           return <Flashcard flashcard={flashcard} />;
         })}
       </div>
-      <AddCircle
-        sx={{
-          color: '#FFFFFF',
-          fontSize: '2.5rem',
-          position: 'absolute',
-          top: { xs: '4rem', sm: '5rem' },
-          right: '1rem',
-          cursor: 'pointer',
-          transition: 'transform .2s',
-          '&:hover': {
-            transform: 'scale(1.2)',
-          },
-        }}
-        onClick={() => setCreateMode(!createMode)}
-      />
+      <Tooltip title="Create Flashcard">
+        <AddCircle
+          sx={{
+            color: '#FFFFFF',
+            fontSize: '2.5rem',
+            position: 'absolute',
+            top: { xs: '4rem', sm: '5rem' },
+            right: '1.5rem',
+            cursor: 'pointer',
+            transition: 'transform .2s',
+            '&:hover': {
+              transform: 'scale(1.3)',
+            },
+          }}
+          onClick={() => setCreateMode(!createMode)}
+        />
+      </Tooltip>
     </>
   );
 };

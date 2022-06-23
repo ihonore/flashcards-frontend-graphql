@@ -1,6 +1,9 @@
 import { CheckCircle, Delete, Edit, Person } from '@mui/icons-material';
 import { Box, Divider, Stack, Typography } from '@mui/material';
 import moment from 'moment';
+import Tippy from '@tippyjs/react';
+import 'tippy.js/dist/tippy.css';
+import 'tippy.js/themes/light-border.css';
 import React, { useState, useRef } from 'react';
 import {
   useDeleteFlashcardMutation,
@@ -151,7 +154,9 @@ export default function Flashcard({ flashcard }: any) {
                   <BallTriangle width={20} height={20} color="red" />
                 ) : (
                   <Delete
-                    sx={{ color: isOwner() ? '#FF7247' : 'rgb(188, 184, 189)' }}
+                    sx={{
+                      color: isOwner() ? '#FF7247' : 'rgb(188, 184, 189)',
+                    }}
                     onClick={() => {
                       if (isOwner()) {
                         deleteFlashcardMutation({
@@ -188,25 +193,34 @@ export default function Flashcard({ flashcard }: any) {
           </Box>
         </div>
       )}
-      <Box
-        className={`card ${flip ? 'flip' : ''}`}
-        sx={{ height: { xs: '25vh', sm: 250 }, width: { xs: '90vw', sm: 400 } }}
-        onClick={() => setFlip(!flip)}
+      <Tippy
+        placement="left"
+        theme="light-border"
+        content={'Click to view the answer'}
       >
-        <Box className="front" ref={frontEl}>
-          <Typography
-            variant="h6"
-            sx={{
-              fontSize: { xs: '1rem', sm: '1.2rem' },
-            }}
-          >
-            {flashcard.question}
-          </Typography>
+        <Box
+          className={`card ${flip ? 'flip' : ''}`}
+          sx={{
+            height: { xs: '25vh', sm: 250 },
+            width: { xs: '90vw', sm: 400 },
+          }}
+          onClick={() => setFlip(!flip)}
+        >
+          <Box className="front" ref={frontEl}>
+            <Typography
+              variant="h6"
+              sx={{
+                fontSize: { xs: '1rem', sm: '1.2rem' },
+              }}
+            >
+              {flashcard.question}
+            </Typography>
+          </Box>
+          <div className="back" ref={backEl}>
+            <Typography variant="h6">{flashcard.answer}</Typography>
+          </div>
         </Box>
-        <div className="back" ref={backEl}>
-          <Typography variant="h6">{flashcard.answer}</Typography>
-        </div>
-      </Box>
+      </Tippy>
     </Box>
   );
 }
