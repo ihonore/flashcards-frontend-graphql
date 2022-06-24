@@ -1,4 +1,4 @@
-import { CheckCircle, Delete, Edit, Person } from '@mui/icons-material';
+import { Cancel, CheckCircle, Delete, Edit, Person } from '@mui/icons-material';
 import { Box, Divider, Stack, Typography } from '@mui/material';
 import moment from 'moment';
 import Tippy from '@tippyjs/react';
@@ -83,6 +83,16 @@ export default function Flashcard({ flashcard }: any) {
         <Box sx={{ padding: '0 0.5rem' }}>
           <EditFlashcard close={handleClose} flashcard={flashcard} />
         </Box>
+        <Cancel
+          sx={{
+            color: 'red',
+            position: 'absolute',
+            top: 0,
+            right: 0,
+            cursor: 'pointer',
+          }}
+          onClick={handleClose}
+        />
       </Box>
     );
   }
