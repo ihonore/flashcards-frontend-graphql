@@ -12,6 +12,7 @@ import {
 import { BallTriangle } from 'react-loader-spinner';
 import EditFlashcard from './EditFlashcard';
 import { User } from '../SideDrawer/Drawer';
+import { QUERY_ALL_FLASHCARDS } from '../FlashcardsList/query';
 
 export default function Flashcard({ flashcard }: any) {
   const [flip, setFlip] = useState(false);
@@ -162,6 +163,26 @@ export default function Flashcard({ flashcard }: any) {
                         deleteFlashcardMutation({
                           variables: {
                             deleteFlashcardId: flashcard.id,
+                          },
+                          // refetchQueries: [{ query: QUERY_ALL_FLASHCARDS }],
+                          update: (cache, { data }) => {
+                            const currentFlaschcards: any = cache.readQuery({
+                              query: QUERY_ALL_FLASHCARDS,
+                            });
+
+                            cache.writeQuery({
+                              query: QUERY_ALL_FLASHCARDS,
+                              data: {
+                                flashcards: {
+                                  flashcards:
+                                    currentFlaschcards.flashcards.flashcards.filter(
+                                      (flashcard: any) =>
+                                        flashcard.id !==
+                                        data?.deleteFlashcard.id
+                                    ),
+                                },
+                              },
+                            });
                           },
                         });
                       }

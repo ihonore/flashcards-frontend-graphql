@@ -4,6 +4,7 @@ import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import { useCreateFlashcardMutation } from '../../generated/graphql';
 import { Bars } from 'react-loader-spinner';
+import { QUERY_ALL_FLASHCARDS } from '../FlashcardsList/query';
 
 const CreateFlashcard = ({ close }: any) => {
   const [formState, setFormState] = React.useState({
@@ -77,6 +78,30 @@ const CreateFlashcard = ({ close }: any) => {
                 onCompleted: () => {
                   close();
                 },
+                // refetchQueries: [
+                //   {
+                //     query: QUERY_ALL_FLASHCARDS,
+                //   },
+                // ],
+                ///
+                update: (cache, { data }) => {
+                  const currentFlaschcards: any = cache.readQuery({
+                    query: QUERY_ALL_FLASHCARDS,
+                  });
+
+                  cache.writeQuery({
+                    query: QUERY_ALL_FLASHCARDS,
+                    data: {
+                      flashcards: {
+                        flashcards: [
+                          data?.createFlashcard,
+                          ...currentFlaschcards.flashcards.flashcards,
+                        ],
+                      },
+                    },
+                  });
+                },
+                ///
               });
             }}
           >

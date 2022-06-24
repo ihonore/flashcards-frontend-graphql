@@ -17,7 +17,6 @@ import {
   AutoAwesomeMotion,
   BadgeOutlined,
   ExitToApp,
-  Sort,
 } from '@mui/icons-material';
 import { Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
