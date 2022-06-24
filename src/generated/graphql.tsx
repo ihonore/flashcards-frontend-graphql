@@ -150,6 +150,13 @@ export type FlashcardsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type FlashcardsQuery = { __typename?: 'Query', flashcards: { __typename?: 'AllFlashcards', flashcards: Array<{ __typename?: 'Flashcard', id: number, question: string, answer: string, isDone: boolean, createdAt: any, postedBy?: { __typename?: 'User', email: string } | null }> } };
 
+export type OrderByQueryVariables = Exact<{
+  orderBy?: InputMaybe<Array<FlashcardOrderByInput> | FlashcardOrderByInput>;
+}>;
+
+
+export type OrderByQuery = { __typename?: 'Query', flashcards: { __typename?: 'AllFlashcards', count: number, id?: string | null, flashcards: Array<{ __typename?: 'Flashcard', id: number, question: string, answer: string, isDone: boolean, createdAt: any, postedBy?: { __typename?: 'User', name: string, email: string } | null }> } };
+
 export type LoginMutationVariables = Exact<{
   email: Scalars['String'];
   password: Scalars['String'];
@@ -378,6 +385,53 @@ export function useFlashcardsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions
 export type FlashcardsQueryHookResult = ReturnType<typeof useFlashcardsQuery>;
 export type FlashcardsLazyQueryHookResult = ReturnType<typeof useFlashcardsLazyQuery>;
 export type FlashcardsQueryResult = Apollo.QueryResult<FlashcardsQuery, FlashcardsQueryVariables>;
+export const OrderByDocument = gql`
+    query OrderBy($orderBy: [FlashcardOrderByInput!]) {
+  flashcards(orderBy: $orderBy) {
+    flashcards {
+      id
+      question
+      answer
+      isDone
+      createdAt
+      postedBy {
+        name
+        email
+      }
+    }
+    count
+    id
+  }
+}
+    `;
+
+/**
+ * __useOrderByQuery__
+ *
+ * To run a query within a React component, call `useOrderByQuery` and pass it any options that fit your needs.
+ * When your component renders, `useOrderByQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useOrderByQuery({
+ *   variables: {
+ *      orderBy: // value for 'orderBy'
+ *   },
+ * });
+ */
+export function useOrderByQuery(baseOptions?: Apollo.QueryHookOptions<OrderByQuery, OrderByQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<OrderByQuery, OrderByQueryVariables>(OrderByDocument, options);
+      }
+export function useOrderByLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<OrderByQuery, OrderByQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<OrderByQuery, OrderByQueryVariables>(OrderByDocument, options);
+        }
+export type OrderByQueryHookResult = ReturnType<typeof useOrderByQuery>;
+export type OrderByLazyQueryHookResult = ReturnType<typeof useOrderByLazyQuery>;
+export type OrderByQueryResult = Apollo.QueryResult<OrderByQuery, OrderByQueryVariables>;
 export const LoginDocument = gql`
     mutation Login($email: String!, $password: String!) {
   login(email: $email, password: $password) {

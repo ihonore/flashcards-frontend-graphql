@@ -17,7 +17,7 @@ export const QUERY_ALL_FLASHCARDS = gql`
   }
 `;
 
-export const SORT_BY_TIME_QUERY = gql`
+export const SORT_BY_QUERY = gql`
   query OrderBy($orderBy: [FlashcardOrderByInput!]) {
     flashcards(orderBy: $orderBy) {
       flashcards {
