@@ -89,7 +89,14 @@ export default function PersistentDrawerLeft({
         <Divider />
         <List>
           <ListItem key="all FlashCards" disablePadding>
-            <ListItemButton onClick={() => navigate('/dashboard')}>
+            <ListItemButton
+              onClick={() => {
+                navigate('/dashboard');
+                setTimeout(() => {
+                  close();
+                }, 500);
+              }}
+            >
               <ListItemIcon>
                 <AutoAwesomeMotion sx={classes.icon} />
               </ListItemIcon>
@@ -97,7 +104,14 @@ export default function PersistentDrawerLeft({
             </ListItemButton>
           </ListItem>
           <ListItem key="My FlashCards" disablePadding>
-            <ListItemButton onClick={() => navigate('/my-flashcards')}>
+            <ListItemButton
+              onClick={() => {
+                navigate('/my-flashcards');
+                setTimeout(() => {
+                  close();
+                }, 500);
+              }}
+            >
               <ListItemIcon>
                 <BadgeOutlined sx={classes.icon} />
               </ListItemIcon>
@@ -106,10 +120,8 @@ export default function PersistentDrawerLeft({
           </ListItem>
           <ListItem key="sort" disablePadding>
             <ListItemButton>
-              <ListItemIcon>
-                <Sort sx={classes.icon} />
-              </ListItemIcon>
-              <ListItemText primary="Sort Flashcards" />
+              <ListItemIcon>{/* <Sort sx={classes.icon} /> */}</ListItemIcon>
+              <ListItemText primary=" " />
             </ListItemButton>
           </ListItem>
         </List>

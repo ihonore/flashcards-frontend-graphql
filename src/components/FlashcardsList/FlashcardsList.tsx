@@ -152,11 +152,14 @@ const FlashcardaList: React.FC = () => {
 
   dispatch(setAllFlashcards(data.flashcards.flashcards));
 
-  const myFlashcards = data.flashcards.flashcards.filter((flashcard) => {
-    const strObj: any = localStorage.getItem('currentUser');
-    const currentUser = JSON.parse(strObj);
-    return flashcard.postedBy?.email === currentUser?.email;
-  });
+  let cardsToChooseFrom = sortedData ? sortedData : data;
+  const myFlashcards = cardsToChooseFrom.flashcards.flashcards.filter(
+    (flashcard) => {
+      const strObj: any = localStorage.getItem('currentUser');
+      const currentUser = JSON.parse(strObj);
+      return flashcard.postedBy?.email === currentUser?.email;
+    }
+  );
 
   if (myFlashcards.length < 1 && pathname === '/my-flashcards') {
     return (
