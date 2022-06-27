@@ -32,20 +32,20 @@ const FlashcardaList: React.FC = () => {
     setCreateMode(false);
   };
 
-  const decideSortingOrder = (sortBy: string) => {
-    const previousQueryId = previousData?.flashcards.id;
-    if (
-      previousQueryId &&
-      previousQueryId.search(sortBy) &&
-      previousQueryId.search('desc')
-    ) {
-      return true;
-    }
-    return false;
-  };
+  // const decideSortingOrder = (sortBy: string) => {
+  //   const previousQueryId = previousData?.flashcards.id;
+  //   if (
+  //     previousQueryId &&
+  //     previousQueryId.search(sortBy) &&
+  //     previousQueryId.search('desc')
+  //   ) {
+  //     return true;
+  //   }
+  //   return false;
+  // };
 
   const handleSort = (sortBy: string) => {
-    let asc: boolean = decideSortingOrder(sortBy);
+    // let asc: boolean = decideSortingOrder(sortBy);
     console.log(previousData?.flashcards.id);
 
     if (sortBy === 'createdAt') {
@@ -54,7 +54,7 @@ const FlashcardaList: React.FC = () => {
         variables: {
           orderBy: [
             {
-              createdAt: asc ? SortEnum.Asc : SortEnum.Desc,
+              createdAt: SortEnum.Desc,
             },
           ],
         },
@@ -69,7 +69,7 @@ const FlashcardaList: React.FC = () => {
         variables: {
           orderBy: [
             {
-              question: asc ? SortEnum.Asc : SortEnum.Desc,
+              question: SortEnum.Asc,
             },
           ],
         },
@@ -85,7 +85,7 @@ const FlashcardaList: React.FC = () => {
         variables: {
           orderBy: [
             {
-              answer: asc ? SortEnum.Asc : SortEnum.Desc,
+              answer: SortEnum.Asc,
             },
           ],
         },
@@ -249,7 +249,7 @@ const FlashcardaList: React.FC = () => {
                   </span>
                 )}
                 <button className="dropdown-item" style={classes.button}>
-                  {orderBy}
+                  {orderBy === 'createdAt' ? 'most recent' : orderBy}
                 </button>
               </MenuItem>
             ))}
