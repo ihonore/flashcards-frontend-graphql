@@ -5,6 +5,8 @@ import Box from '@mui/material/Box';
 import { useCreateFlashcardMutation } from '../../generated/graphql';
 import { Bars } from 'react-loader-spinner';
 import { QUERY_ALL_FLASHCARDS } from '../FlashcardsList/query';
+import { Cancel } from '@mui/icons-material';
+import { Tooltip } from '@mui/material';
 
 const CreateFlashcard = ({ close }: any) => {
   const [formState, setFormState] = React.useState({
@@ -109,6 +111,18 @@ const CreateFlashcard = ({ close }: any) => {
           </Button>
         </Box>
       </Box>
+      <Tooltip title="cancel" arrow>
+        <Cancel
+          sx={{
+            color: 'red',
+            position: 'absolute',
+            top: 0,
+            right: 0,
+            cursor: 'pointer',
+          }}
+          onClick={close}
+        />
+      </Tooltip>
     </Box>
   );
 };
