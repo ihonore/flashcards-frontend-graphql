@@ -132,6 +132,7 @@ const FlashcardaList: React.FC = () => {
       position: 'absolute',
       top: 2.5,
       left: 2.5,
+      zIndex: -1,
     },
   };
 
@@ -227,35 +228,36 @@ const FlashcardaList: React.FC = () => {
             onClick={() => setCreateMode(!createMode)}
           />
         </Tooltip>
-        <Box sx={classes.box}>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={40}
-            label="Age"
-            variant="standard"
-            sx={{
-              width: 50,
-              height: 40,
-              // marginRight: 15,
-              // border: '1px solid white',
-            }}
-          >
-            {['Question', 'Answer', 'createdAt'].map((orderBy) => (
-              <MenuItem key={orderBy} onClick={() => handleSort(orderBy)}>
-                {sortLoading && sortLoader === orderBy && (
-                  <span>
-                    <TailSpin width={15} height={15} />
-                  </span>
-                )}
-                <button className="dropdown-item" style={classes.button}>
-                  {orderBy === 'createdAt' ? 'most recent' : orderBy}
-                </button>
-              </MenuItem>
-            ))}
-          </Select>
-          <Sort sx={classes.sortIcon} />
-        </Box>
+        <Tooltip title="Sort flashcards" placement="top" arrow>
+          <Box sx={classes.box}>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              label="Age"
+              variant="standard"
+              sx={{
+                width: 50,
+                height: 40,
+                // marginRight: 15,
+                // border: '1px solid white',
+              }}
+            >
+              {['Question', 'Answer', 'createdAt'].map((orderBy) => (
+                <MenuItem key={orderBy} onClick={() => handleSort(orderBy)}>
+                  {sortLoading && sortLoader === orderBy && (
+                    <span>
+                      <TailSpin width={15} height={15} />
+                    </span>
+                  )}
+                  <button className="dropdown-item" style={classes.button}>
+                    {orderBy === 'createdAt' ? 'most recent' : orderBy}
+                  </button>
+                </MenuItem>
+              ))}
+            </Select>
+            <Sort sx={classes.sortIcon} />
+          </Box>
+        </Tooltip>
       </Stack>
     </>
   );
