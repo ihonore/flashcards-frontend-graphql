@@ -110,18 +110,19 @@ export default function Flashcard({ flashcard }: any) {
           <Box
             sx={{
               position: 'absolute',
-              top: '1.5rem',
-              right: { xs: '0.2rem', sm: '0.5rem' },
+              top: { xs: '0.3rem', sm: '0.5rem' },
+              right: { xs: '0.2rem', sm: '0.6rem' },
               backgroundColor: 'white',
               padding: '0.5rem 0.5rem',
               transition: 'transform .2s',
               zIndex: 2,
               '&:hover': {
-                transform: 'scale(1.2)',
+                transform: 'scale(1.1)',
               },
             }}
           >
             <Stack
+              direction="row"
               sx={{
                 backgroundColor: '#F6CA8B',
                 boxShadow: '4px 4px 4px rgba(0, 0, 0, 0.2)',

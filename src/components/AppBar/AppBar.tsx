@@ -64,12 +64,11 @@ export default function SearchAppBar() {
   const [filterValue, setFilterValue] = React.useState('');
   const dispatch = useDispatch();
 
-  const [filterFlashcards, {  loading }] =
-    useFilterFlashcardsLazyQuery({
-      variables: {
-        filter: '',
-      },
-    });
+  const [filterFlashcards, { loading }] = useFilterFlashcardsLazyQuery({
+    variables: {
+      filter: '',
+    },
+  });
 
   const handleDrawerClose = () => {
     setOpen(false);
