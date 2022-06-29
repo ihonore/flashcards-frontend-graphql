@@ -20,7 +20,7 @@ import {
 import { BallTriangle } from 'react-loader-spinner';
 import EditFlashcard from './EditFlashcard';
 import { User } from '../SideDrawer/Drawer';
-import { QUERY_ALL_FLASHCARDS } from '../FlashcardsList/query';
+import { QUERY_ALL_FLASHCARDS, SORT_BY_QUERY } from '../FlashcardsList/query';
 
 //confirm Modal styles
 const style = {
@@ -86,6 +86,16 @@ export default function Flashcard({ flashcard }: any) {
 
         cache.writeQuery({
           query: QUERY_ALL_FLASHCARDS,
+          data: {
+            flashcards: {
+              flashcards: currentFlaschcards.flashcards.flashcards.filter(
+                (flashcard: any) => flashcard.id !== data?.deleteFlashcard.id
+              ),
+            },
+          },
+        });
+        cache.writeQuery({
+          query: SORT_BY_QUERY,
           data: {
             flashcards: {
               flashcards: currentFlaschcards.flashcards.flashcards.filter(

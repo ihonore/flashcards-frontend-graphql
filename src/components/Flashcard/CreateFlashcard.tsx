@@ -4,7 +4,7 @@ import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import { useCreateFlashcardMutation } from '../../generated/graphql';
 import { Bars } from 'react-loader-spinner';
-import { QUERY_ALL_FLASHCARDS } from '../FlashcardsList/query';
+import { QUERY_ALL_FLASHCARDS, SORT_BY_QUERY } from '../FlashcardsList/query';
 import { Cancel } from '@mui/icons-material';
 import { Tooltip } from '@mui/material';
 
@@ -93,6 +93,17 @@ const CreateFlashcard = ({ close }: any) => {
 
                   cache.writeQuery({
                     query: QUERY_ALL_FLASHCARDS,
+                    data: {
+                      flashcards: {
+                        flashcards: [
+                          data?.createFlashcard,
+                          ...currentFlaschcards.flashcards.flashcards,
+                        ],
+                      },
+                    },
+                  });
+                  cache.writeQuery({
+                    query: SORT_BY_QUERY,
                     data: {
                       flashcards: {
                         flashcards: [
