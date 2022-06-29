@@ -20,8 +20,26 @@ const EditFlashcard = ({ close, flashcard }: any) => {
     },
   });
 
+  const handleSubmit = (e: any) => {
+    console.log(e);
+    e.preventDefault();
+    updateFlashcardMutation({
+      variables: {
+        updateFlashcardId: flashcard.id,
+        question: formState.question,
+        answer: formState.answer,
+      },
+      onCompleted: () => {
+        close();
+      },
+    });
+  };
   return (
-    <Box component="form" noValidate sx={{ mt: 1, background: '#D6FAE7' }}>
+    <Box
+      component="form"
+      onSubmit={handleSubmit}
+      sx={{ mt: 1, background: '#D6FAE7', padding: '0 0.5rem' }}
+    >
       <TextField
         margin="normal"
         required
@@ -56,21 +74,14 @@ const EditFlashcard = ({ close, flashcard }: any) => {
         }
       />
       <Button
+        disabled={
+          formState.question === flashcard.question &&
+          formState.answer === flashcard.answer
+        }
         fullWidth
         variant="contained"
         sx={{ mt: 3, mb: 2, bgcolor: '#543980' }}
-        onClick={() => {
-          updateFlashcardMutation({
-            variables: {
-              updateFlashcardId: flashcard.id,
-              question: formState.question,
-              answer: formState.answer,
-            },
-            onCompleted: () => {
-              close();
-            },
-          });
-        }}
+        type="submit"
       >
         {loading ? (
           <Bars width={20} height={20} color="white" />

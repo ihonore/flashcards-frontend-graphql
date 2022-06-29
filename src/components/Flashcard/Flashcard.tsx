@@ -269,7 +269,9 @@ export default function Flashcard({ flashcard }: any) {
         <Tippy
           placement="left"
           theme="light-border"
-          content={'Click to view the answer'}
+          content={
+            !flip ? 'Click to view the answer' : 'click to view the question'
+          }
         >
           <Box
             className={`card ${flip ? 'flip' : ''}`}

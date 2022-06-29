@@ -22,6 +22,54 @@ const CreateFlashcard = ({ close }: any) => {
     },
   });
 
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    createFlashcardMutation({
+      variables: {
+        question: formState.question,
+        answer: formState.answer,
+      },
+      onCompleted: () => {
+        close();
+      },
+      // refetchQueries: [
+      //   {
+      //     query: QUERY_ALL_FLASHCARDS,
+      //   },
+      // ],
+      ///
+      update: (cache, { data }) => {
+        const currentFlaschcards: any = cache.readQuery({
+          query: QUERY_ALL_FLASHCARDS,
+        });
+
+        cache.writeQuery({
+          query: QUERY_ALL_FLASHCARDS,
+          data: {
+            flashcards: {
+              flashcards: [
+                data?.createFlashcard,
+                ...currentFlaschcards.flashcards.flashcards,
+              ],
+            },
+          },
+        });
+        cache.writeQuery({
+          query: SORT_BY_QUERY,
+          data: {
+            flashcards: {
+              flashcards: [
+                data?.createFlashcard,
+                ...currentFlaschcards.flashcards.flashcards,
+              ],
+            },
+          },
+        });
+      },
+      ///
+    });
+  };
+
   return (
     <Box
       sx={{
@@ -33,7 +81,11 @@ const CreateFlashcard = ({ close }: any) => {
       }}
     >
       <Box sx={{ padding: '0 0.5rem' }}>
-        <Box component="form" noValidate sx={{ mt: 1, background: '#D6FAE7' }}>
+        <Box
+          component="form"
+          onSubmit={handleSubmit}
+          sx={{ mt: 1, background: '#D6FAE7', padding: '0 0.5rem' }}
+        >
           <TextField
             margin="normal"
             required
@@ -68,55 +120,10 @@ const CreateFlashcard = ({ close }: any) => {
             }
           />
           <Button
+            type="submit"
             fullWidth
             variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-            onClick={() => {
-              createFlashcardMutation({
-                variables: {
-                  question: formState.question,
-                  answer: formState.answer,
-                },
-                onCompleted: () => {
-                  close();
-                },
-                // refetchQueries: [
-                //   {
-                //     query: QUERY_ALL_FLASHCARDS,
-                //   },
-                // ],
-                ///
-                update: (cache, { data }) => {
-                  const currentFlaschcards: any = cache.readQuery({
-                    query: QUERY_ALL_FLASHCARDS,
-                  });
-
-                  cache.writeQuery({
-                    query: QUERY_ALL_FLASHCARDS,
-                    data: {
-                      flashcards: {
-                        flashcards: [
-                          data?.createFlashcard,
-                          ...currentFlaschcards.flashcards.flashcards,
-                        ],
-                      },
-                    },
-                  });
-                  cache.writeQuery({
-                    query: SORT_BY_QUERY,
-                    data: {
-                      flashcards: {
-                        flashcards: [
-                          data?.createFlashcard,
-                          ...currentFlaschcards.flashcards.flashcards,
-                        ],
-                      },
-                    },
-                  });
-                },
-                ///
-              });
-            }}
+            sx={{ mt: 3, mb: 2, background: '#543980' }}
           >
             {loading ? <Bars width={20} height={20} color="white" /> : 'SAVE'}
           </Button>
