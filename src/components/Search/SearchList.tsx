@@ -6,6 +6,7 @@ const SearchList: React.FC = () => {
   const [cardsToDisplay, setCardsToDisplay] = React.useState([]);
   const state: any = useSelector((state) => state);
   const allCards = state?.flashCards?.allCards;
+  const filteredCards = state?.flashCards.filteredCards;
 
   useEffect(() => {
     setCardsToDisplay(allCards);
@@ -19,9 +20,13 @@ const SearchList: React.FC = () => {
 
   return (
     <div className="card-grid">
-      {cardsToDisplay?.map((flashcard: any) => {
-        return <Flashcard flashcard={flashcard} />;
-      })}
+      {filteredCards.length >= 1
+        ? filteredCards?.map((flashcard: any) => {
+            return <Flashcard flashcard={flashcard} />;
+          })
+        : cardsToDisplay?.map((flashcard: any) => {
+            return <Flashcard flashcard={flashcard} />;
+          })}
     </div>
   );
 };

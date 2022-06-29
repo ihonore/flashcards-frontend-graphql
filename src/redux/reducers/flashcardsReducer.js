@@ -17,7 +17,7 @@ const flashcardsReducer = (state = initialState, action) => {
     case SET_FILTERED_CARDS:
       return {
         ...state,
-        filterdCards: action.payload,
+        filteredCards: action.payload,
         loading: false,
       };
     default:

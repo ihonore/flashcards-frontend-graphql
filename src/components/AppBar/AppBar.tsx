@@ -12,8 +12,8 @@ import PersistentDrawerLeft from '../SideDrawer/Drawer';
 import { TailSpin } from 'react-loader-spinner';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useFilterFlashcardsLazyQuery } from '../../generated/graphql';
-import { useDispatch } from 'react-redux';
-import setAllFlashcards from '../../redux/actions/flashcardsActions';
+import { useDispatch, useSelector } from 'react-redux';
+import { setFilteredcards } from '../../redux/actions/flashcardsActions';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -62,6 +62,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function SearchAppBar() {
   const [open, setOpen] = React.useState(false);
   const [filterValue, setFilterValue] = React.useState('');
+  const state: any = useSelector((state) => state);
+  const allCards = state?.flashCards?.allCards;
+
   const dispatch = useDispatch();
 
   const [filterFlashcards, { loading }] = useFilterFlashcardsLazyQuery({
@@ -83,7 +86,7 @@ export default function SearchAppBar() {
         filter: filterValue,
       },
       onCompleted: ({ flashcards }) => {
-        dispatch(setAllFlashcards(flashcards.flashcards));
+        dispatch(setFilteredcards(flashcards.flashcards));
       },
     });
   };
@@ -137,10 +140,21 @@ export default function SearchAppBar() {
                     navigate('/search');
                   }
                 }}
-                onChange={(e) => {
+                onChange={async (e) => {
                   setFilterValue(e.target.value);
+                  console.log(e.target.value);
+                  const found = await allCards.filter((card: any) => {
+                    return (
+                      card.question
+                        .toLowerCase()
+                        .includes(e.target.value.toLowerCase()) ||
+                      card.answer
+                        .toLowerCase()
+                        .includes(e.target.value.toLowerCase())
+                    );
+                  });
+                  dispatch(setFilteredcards(found));
                 }}
-                value={filterValue}
                 autoFocus={pathname === '/search' ? true : false}
               />
             </Search>
