@@ -137,7 +137,7 @@ export default function Flashcard({ flashcard }: any) {
         sx={{
           position: 'relative',
           height: { xs: '25vh', sm: 250 },
-          width: { xs: '90vw', sm: 400 },
+          width: { xs: '90vw', sm: 360 },
           background: 'white',
           borderRadius: '0.25rem',
         }}
@@ -167,7 +167,7 @@ export default function Flashcard({ flashcard }: any) {
         sx={{
           position: 'relative',
           height: { xs: '25vh', sm: 250 },
-          width: { xs: '90vw', sm: 400 },
+          width: { xs: '90vw', sm: 360 },
         }}
       >
         {!flip && (
@@ -275,7 +275,7 @@ export default function Flashcard({ flashcard }: any) {
             className={`card ${flip ? 'flip' : ''}`}
             sx={{
               height: { xs: '25vh', sm: 250 },
-              width: { xs: '90vw', sm: 400 },
+              width: { xs: '90vw', sm: 360 },
             }}
             onClick={() => setFlip(!flip)}
           >

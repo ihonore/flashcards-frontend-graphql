@@ -27,7 +27,7 @@ const CreateFlashcard = ({ close }: any) => {
       sx={{
         position: 'relative',
         height: { xs: '25vh', sm: 250 },
-        width: { xs: '90vw', sm: 400 },
+        width: { xs: '90vw', sm: 360 },
         background: 'rgba(255, 255, 255,0.8)',
         borderRadius: '0.25rem',
       }}
