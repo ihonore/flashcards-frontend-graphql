@@ -1,8 +1,9 @@
-import { SET_ALL_CARDS, SET_FILTERED_CARDS } from '../types';
+import { SET_ALL_CARDS, SET_FILTERED_CARDS, SET_FILTER_VALUE } from '../types';
 
 const initialState = {
   allCards: [],
   filteredCards: [],
+  filterValue: '',
   loading: true,
 };
 
@@ -18,6 +19,12 @@ const flashcardsReducer = (state = initialState, action) => {
       return {
         ...state,
         filteredCards: action.payload,
+        loading: false,
+      };
+    case SET_FILTER_VALUE:
+      return {
+        ...state,
+        filterValue: action.payload,
         loading: false,
       };
     default:

@@ -51,8 +51,6 @@ body {
 .card .front {
   text-align: center;
   color: rgb(0, 0, 24);
-  font-weight: 500;
-  font-size: 1.2rem;
 }
 
 .card .front,
@@ -60,13 +58,13 @@ body {
   position: absolute;
   padding: 1rem;
   backface-visibility: hidden;
-  font-size: 1.2rem;
   transform: rotateX(0deg);
 }
 
 .card .back {
   transform: rotateY(180deg);
   color: rgb(4, 182, 19);
+  font-size: 1.2rem;
   /* color: rgb(188, 184, 189); */
 }
 

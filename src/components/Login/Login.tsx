@@ -67,7 +67,8 @@ export default function SignIn() {
       },
     });
 
-  const handleLogin = () => {
+  const handleLogin = (e: any) => {
+    e.preventDefault();
     const { name, email, password } = formState;
     let emailRegex = new RegExp('[a-z0-9]+@[a-z]+.[a-z]{2,3}');
 
@@ -164,7 +165,7 @@ export default function SignIn() {
           <Typography component="h5" variant="body1" sx={{ color: 'red' }}>
             {formState.error && `${formState.error}`}
           </Typography>
-          <Box component="form" noValidate sx={{ mt: 1 }}>
+          <Box component="form" onSubmit={handleLogin} sx={{ mt: 1 }}>
             {!login && (
               <TextField
                 margin="normal"
@@ -223,10 +224,13 @@ export default function SignIn() {
               }
             />
             <Button
+              type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-              onClick={handleLogin}
+              sx={{
+                mt: 3,
+                mb: 2,
+              }}
             >
               {loading || signupLoading ? (
                 <TailSpin color="skyblue" height={30} width={30} />

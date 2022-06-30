@@ -7,12 +7,14 @@ const SearchList: React.FC = () => {
   const state: any = useSelector((state) => state);
   const allCards = state?.flashCards?.allCards;
   const filteredCards = state?.flashCards.filteredCards;
+  const filterValue = state?.flashCards.filterValue;
+  console.log(filterValue);
 
   useEffect(() => {
     setCardsToDisplay(allCards);
   }, [allCards]);
 
-  if (allCards.length < 1) {
+  if (filteredCards.length < 1 && filterValue) {
     return (
       <div style={{ color: 'white', fontSize: '2rem' }}>no matches...</div>
     );

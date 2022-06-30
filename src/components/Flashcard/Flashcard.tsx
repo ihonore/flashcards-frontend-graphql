@@ -285,7 +285,7 @@ export default function Flashcard({ flashcard }: any) {
               <Typography
                 variant="h6"
                 sx={{
-                  fontSize: { xs: '1rem', sm: '1.2rem' },
+                  fontSize: { xs: '1rem', sm: '1.1rem', fontWeight: 400 },
                 }}
               >
                 {flashcard.question}

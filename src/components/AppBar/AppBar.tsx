@@ -13,7 +13,10 @@ import { TailSpin } from 'react-loader-spinner';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useFilterFlashcardsLazyQuery } from '../../generated/graphql';
 import { useDispatch, useSelector } from 'react-redux';
-import { setFilteredcards } from '../../redux/actions/flashcardsActions';
+import {
+  setFilteredcards,
+  setGlobalFilterValue,
+} from '../../redux/actions/flashcardsActions';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -109,8 +112,9 @@ export default function SearchAppBar() {
               color="inherit"
               aria-label="open drawer"
               sx={{ mr: 2 }}
+              onClick={() => setOpen(!open)}
             >
-              <MenuIcon onClick={() => setOpen(!open)} />
+              <MenuIcon />
             </IconButton>
             <Typography
               variant="h6"
@@ -142,7 +146,8 @@ export default function SearchAppBar() {
                 }}
                 onChange={async (e) => {
                   setFilterValue(e.target.value);
-                  console.log(e.target.value);
+                  dispatch(setGlobalFilterValue(e.target.value));
+                  // console.log(e.target.value);
                   const found = await allCards.filter((card: any) => {
                     return (
                       card.question
