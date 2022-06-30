@@ -83,7 +83,6 @@ export default function SearchAppBar() {
   const navigate = useNavigate();
 
   const handleSearch = () => {
-    console.log('clicked');
     filterFlashcards({
       variables: {
         filter: filterValue,
@@ -147,7 +146,7 @@ export default function SearchAppBar() {
                 onChange={async (e) => {
                   setFilterValue(e.target.value);
                   dispatch(setGlobalFilterValue(e.target.value));
-                  // console.log(e.target.value);
+
                   const found = await allCards.filter((card: any) => {
                     return (
                       card.question

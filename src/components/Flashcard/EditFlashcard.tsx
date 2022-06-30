@@ -21,7 +21,6 @@ const EditFlashcard = ({ close, flashcard }: any) => {
   });
 
   const handleSubmit = (e: any) => {
-    console.log(e);
     e.preventDefault();
     updateFlashcardMutation({
       variables: {

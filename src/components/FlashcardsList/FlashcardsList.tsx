@@ -25,7 +25,7 @@ const FlashcardaList: React.FC = () => {
 
   const [
     orderByLazyQuery,
-    { loading: sortLoading, data: sortedData, previousData },
+    { loading: sortLoading, data: sortedData },
   ] = useOrderByLazyQuery();
 
   const handleClose = () => {
@@ -46,7 +46,6 @@ const FlashcardaList: React.FC = () => {
 
   const handleSort = (sortBy: string) => {
     // let asc: boolean = decideSortingOrder(sortBy);
-    console.log(previousData?.flashcards.id);
 
     if (sortBy === 'createdAt') {
       setSortLoader(sortBy);

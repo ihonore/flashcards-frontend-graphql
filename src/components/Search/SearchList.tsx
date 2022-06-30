@@ -8,7 +8,6 @@ const SearchList: React.FC = () => {
   const allCards = state?.flashCards?.allCards;
   const filteredCards = state?.flashCards.filteredCards;
   const filterValue = state?.flashCards.filterValue;
-  console.log(filterValue);
 
   useEffect(() => {
     setCardsToDisplay(allCards);
