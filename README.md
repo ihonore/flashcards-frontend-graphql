@@ -1,46 +1,26 @@
-# Getting Started with Create React App
+# Flashcards app with GraphQL and TypeScript
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Flashcards are a great way to learn a subject in a short period of time by engaging your brain
+with an active recall to help as you work through the cards.
 
-## Available Scripts
+this is an app with interactive flashcards that you can flip, sort, and mark as done.
 
-In the project directory, you can run:
+<a href="https://ihonore-flashcards.vercel.app/" target="_blank">Click here to visit the live version</a>
 
-### `npm start`
+<a href="https://github.com/ihonore/flashcards-backend-graphql" target="_blank">Backend repository</a>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+[The API Documentation](https://ihonore-flashcards.herokuapp.com/)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Screenshots
 
-### `npm test`
+![screencapture-ihonore-flashcards-vercel-app-2022-08-18-00_15_31](https://user-images.githubusercontent.com/79599396/185253458-7adc8693-5e8c-426f-a933-76ff1fd18225.png)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+![screencapture-ihonore-flashcards-vercel-app-dashboard-2022-08-18-00_16_31](https://user-images.githubusercontent.com/79599396/185253524-548ead2a-c3b6-4dc6-abe9-6adb34fbbfec.png)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+![screencapture-ihonore-flashcards-vercel-app-dashboard-2022-08-18-00_17_06](https://user-images.githubusercontent.com/79599396/185253549-af509c42-2b2b-4728-b115-e4e4d2ee5ffd.png)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
